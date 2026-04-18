@@ -1,0 +1,617 @@
+{
+  "navbar": {
+    "home": "Home",
+    "services": "Services",
+    "rewards": "My Rewards",
+    "about": "About",
+    "business": "Business",
+    "planTrip": "Plan Your Trip",
+    "comingSoon": "Coming Soon",
+    "login": "Log in",
+    "register": "Register",
+    "guest": "Guest"
+  },
+  "hero": {
+    "title": "Travel Smart with WEEGO",
+    "subtitle": "Providing comfortable and safe transportation services across Egypt with modern vehicles and professional drivers.",
+    "bookNow": "Book Now",
+    "viewFleet": "View Fleet"
+  },
+  "services": {
+    "title": "Our Premium Services",
+    "subtitle": "Elevate your travel experience with our professional transportation solutions.",
+    "viewAll": "View All Services",
+    "f1": {
+      "name": "Global Flight Network",
+      "desc": "Access inventory from 500+ airlines globally with guaranteed best price algorithms and flexible rebooking options."
+    },
+    "f2": {
+      "name": "Luxury Stays",
+      "desc": "Exclusive curated list of 5-star and boutique hotels with VIP perks."
+    },
+    "f3": {
+      "name": "Expert Guided Tours",
+      "desc": "Explore hidden gems with local experts and private tour guides."
+    },
+    "f4": {
+      "name": "Smart Itineraries",
+      "desc": "Manage your entire trip natively in one clean, syncable dashboard. AI-powered suggestions keep you ahead of your schedule."
+    }
+  },
+  "fleet": {
+    "title": "Our Fleet",
+    "all": "All",
+    "standard": "Standard",
+    "suv": "SUV",
+    "bus": "Bus",
+    "vip": "VIP",
+    "bookNow": "Book Now",
+    "from": "Starting from",
+    "pax": "pax",
+    "bags": "bags"
+  },
+  "airportTransfers": {
+    "title": "Airport Pickup & Flight Tracking",
+    "description": "Share your flight details and our professional chauffeurs will be ready when you land.",
+    "home": {
+      "badge": "AIRPORT SERVICE",
+      "title": "Airport Pickup Made Simple",
+      "description": "Arriving in Egypt? Send us your flight details and our chauffeurs will be waiting when you land.",
+      "cta": "Book Now"
+    },
+    "features": {
+      "tracking": "Flight Tracking",
+      "wait": "Free Waiting Time",
+      "drivers": "Professional Drivers"
+    },
+    "form": {
+      "name": "Passenger Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "airport": "Arrival Airport",
+      "flightNumber": "Flight Number",
+      "arrivalDate": "Arrival Date",
+      "arrivalTime": "Arrival Time",
+      "pax": "Number of Passengers",
+      "luggage": "Number of Luggage",
+      "pickup": "Pickup Location",
+      "dropoff": "Drop-off Location",
+      "uploadLabel": "Upload Flight Ticket (PDF / JPG / PNG)",
+      "uploadSupported": "Supported formats: PDF, JPG, PNG",
+      "submit": "Request Airport Pickup"
+    },
+    "success": "Your airport pickup request has been received. Our team will contact you shortly."
+  },
+  "about": {
+    "title": "About Weego Travel",
+    "description": "Egypt's premier transportation service. Safe, reliable, and comfortable travel. From Cairo to Sharm El Sheikh, from Alexandria to Siwa — we've got you covered."
+  },
+  "contact": {
+    "email": "Email",
+    "phone": "Phone",
+    "office": "Head Office"
+  },
+  "advantages": {
+    "safety": {
+      "title": "Safety First",
+      "description": "Rigorous vehicle inspections, professional background-checked drivers, and real-time trip monitoring."
+    },
+    "fleet": {
+      "title": "Modern Fleet",
+      "description": "Sedan, SUV, H1, HiAce & Coaster — from 3 to 28 passengers. All well-maintained and air-conditioned."
+    },
+    "reliability": {
+      "title": "Reliability",
+      "description": "Always on time, every time. 8 hours of free waiting included with every booking."
+    }
+  },
+  "priceIncludes": {
+    "title": "Price Includes",
+    "goReturn": "Go & Return",
+    "waiting": "8 Hours Free Waiting",
+    "driver": "Professional Driver",
+    "fuel": "Fuel Included",
+    "door": "Point-to-Point Service",
+    "starting": "Starting from"
+  },
+  "destinations": {
+    "title": "Supported Destinations",
+    "cairo": "Cairo",
+    "alexandria": "Alexandria",
+    "newAlamein": "New Alamein",
+    "northCoast": "North Coast",
+    "siwa": "Siwa",
+    "marsaAlam": "Marsa Alam",
+    "sharm": "Sharm El Sheikh",
+    "dahab": "Dahab"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1": "How do I book a transfer?",
+    "a1": "Select your destination, enter your details, pick payment method, and confirm. You get instant confirmation.",
+    "q2": "What does the price include?",
+    "a2": "Go & Return, 8 hours free waiting, professional driver, fuel, and door-to-door service. No hidden fees.",
+    "q3": "What is the cancellation policy?",
+    "a3": "Free cancellation 48+ hours before trip. 50% refund (24-48h). 10% refund (<24h). No refund after trip starts.",
+    "q4": "How do I find my driver?",
+    "a4": "After booking assignment, you'll see driver's name, phone, photo, and vehicle in your dashboard.",
+    "q5": "Do you offer child seats?",
+    "a5": "Yes! Add a child seat during booking for 200 EGP.",
+    "q6": "Can I add WiFi to my trip?",
+    "a6": "Yes, 15-20 GB for 500 EGP, 30-40 GB for 1,000 EGP, or 70 GB for 1,700 EGP.",
+    "q7": "What vehicles are available?",
+    "a7": "Sedan (3 pax), SUV (4 pax), Hyundai H1 (8 pax), Toyota HiAce 14-seater, Toyota Coaster 28-seater.",
+    "q8": "Do you offer corporate accounts?",
+    "a8": "Yes! Corporate pricing with monthly invoicing. Contact weego@gmail.com for a custom package."
+  },
+  "business": {
+    "hero": {
+      "badge": "Corporate Excellence",
+      "title": "Corporate Excellence",
+      "description": "Streamline your company's logistics with WEEGO's premium fleet management and dedicated support."
+    },
+    "trusted": "Trusted by industry leaders",
+    "benefits": {
+      "title": "Why partner with us?",
+      "b1": {
+        "title": "Priority Booking & 24/7 Support",
+        "description": "Access our dedicated corporate hotline and guarantee vehicle availability even during peak seasons."
+      },
+      "b2": {
+        "title": "Simplified Billing",
+        "description": "Consolidated monthly invoicing and detailed reporting to streamline your expense management."
+      },
+      "b3": {
+        "title": "Executive Fleet Access",
+        "description": "Exclusive access to our top-tier Mercedes S-Class and V-Class fleet for absolute comfort."
+      }
+    },
+    "form": {
+      "title": "Partnership Inquiry",
+      "labels": {
+        "companyName": "Company Name",
+        "contactPerson": "Contact Person",
+        "businessEmail": "Business Email",
+        "message": "Message"
+      },
+      "placeholders": {
+        "companyName": "Enter company name",
+        "contactPerson": "Enter your name",
+        "businessEmail": "Enter email address",
+        "message": "Tell us about your needs"
+      },
+      "submit": "Submit Inquiry"
+    }
+  },
+  "rewards": {
+    "badge": "The WEEGO Club",
+    "title1": "Travel More.",
+    "title2": "Get ",
+    "title3": "Rewarded.",
+    "description": "Earn industry-leading points on every booking. Unlock Tier upgrades, complimentary lounge access, and members-only pricing instantly.",
+    "join": "Join for Free",
+    "b1": {
+      "title": "10x Points",
+      "desc": "Earn 10 points per dollar spent on prime bookings."
+    },
+    "b2": {
+      "title": "Tier Upgrades",
+      "desc": "Fast-track to Gold and Platinum status."
+    },
+    "b3": {
+      "title": "VIP Access",
+      "desc": "Exclusive global lounge access and priority boarding."
+    }
+  },
+  "rewardsPage": {
+    "title": "My Rewards",
+    "welcome": "Welcome back! Here is a summary of your loyalty points, current tier benefits, and upcoming rewards.",
+    "bookToEarn": "Book to Earn More",
+    "available": "Available Points",
+    "pts": "pts",
+    "awayFrom": "You are 2,550 points away from",
+    "goldTier": "Gold Tier",
+    "silverTier": "Silver Tier",
+    "currentStatus": "Current Member Status",
+    "viewBenefits": "View Tier Benefits",
+    "ready": "Ready for a getaway?",
+    "readyDesc": "You have enough points to redeem a free internal flight or a 2-night luxury hotel stay.",
+    "redeem": "Redeem Now"
+  },
+  "steps": {
+    "badge": "Simple Process",
+    "title": "Book in 3 Simple Steps",
+    "description": "No hidden fees. No surprises. Transparent luxury from start to finish.",
+    "s1": "Choose Your Route",
+    "s2": "Confirm & Pay",
+    "s3": "Relax & Ride",
+    "cta": "Book Your Ride Now"
+  },
+  "why": {
+    "title1": "Why partner",
+    "title2": "with ",
+    "title3": "WEEGO?",
+    "subtitle": "We transcend transportation.",
+    "description": "We transcend traditional booking platforms by prioritizing your experience. Clean design, robust security, and unparalleled support come standard.",
+    "r1": {
+      "title": "Secure & Reliable",
+      "desc": "Your data and payments are secured with industry-leading encryption protocols."
+    },
+    "r2": {
+      "title": "Lightning Fast",
+      "desc": "Optimized for immediate responses, so you spend less time waiting."
+    },
+    "r3": {
+      "title": "24/7 VIP Support",
+      "desc": "We are always here to help you out, no matter where you are."
+    },
+    "r4": {
+      "title": "Traveler First",
+      "desc": "Every feature we build starts with the traveler’s needs at heart."
+    }
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "Trusted by Leaders Worldwide.",
+    "t1": {
+      "name": "Eleanor F.",
+      "role": "CEO, TechCorp",
+      "content": "WEEGO Black transformed our executive travel. The seamless integration of luxury cars, premium buses, and secure transfers is unparalleled."
+    },
+    "t2": {
+      "name": "Marcus J.",
+      "role": "Frequent Flyer",
+      "content": "The loyalty program actually feels rewarding. I've been upgraded to suites twice this year just from my regular business trips."
+    },
+    "t3": {
+      "name": "Sarah L.",
+      "role": "Event Director",
+      "content": "Coordinating travel for 50+ people used to be a nightmare until we partnered with WEEGO. Their B2B platform is a lifesaver."
+    }
+  },
+  "corporate": {
+    "badge": "Corporate Excellence",
+    "title": "Empowering global business ventures",
+    "description": "WEEGO isn't just for vacations. Our dedicated corporate portal ensures seamless business travel management, exclusive B2B rates, detailed expense reporting, and dedicated 24/7 VIP support for your team.",
+    "topRated": "Top Rated",
+    "topRatedDesc": "B2B Travel Platform 2026",
+    "stats": {
+      "partners": {
+        "label": "Corporate Partners",
+        "value": "500+"
+      },
+      "countries": {
+        "label": "Global Presence",
+        "value": "30+ Countries"
+      },
+      "awards": {
+        "label": "Industry Awards",
+        "value": "25"
+      }
+    },
+    "learn": "Learn about Corporate Accounts"
+  },
+  "fleetSection": {
+    "badge": "WEEGO Black",
+    "title1": "Our exclusive ",
+    "title2": "Premium Fleet.",
+    "description": "Travel uninterrupted. From the tarmac to the boardroom, WEEGO Black provides a curated fleet of ultra-luxury vehicles and professional chauffeurs dedicated to your schedule.",
+    "f1": {
+      "title": "Luxury Vehicles",
+      "text": "Mercedes S-Class, BMW 7 Series, Range Rover."
+    },
+    "f2": {
+      "title": "Armored Options",
+      "text": "Discreet high-security transport available on request."
+    },
+    "f3": {
+      "title": "Availability 24/7",
+      "text": "Your personal chauffeur, ready whenever you land."
+    },
+    "sedan": "S-Class Sedan",
+    "ready": "Ready"
+  },
+  "stats": {
+    "s1": {
+      "label": "HAPPY TRAVELERS",
+      "value": "15K+"
+    },
+    "s2": {
+      "label": "DESTINATIONS",
+      "value": "12"
+    },
+    "s3": {
+      "label": "AVERAGE RATING",
+      "value": "4.9"
+    },
+    "s4": {
+      "label": "CUSTOMER SUPPORT",
+      "value": "24/7"
+    }
+  },
+  "footer": {
+    "description": "Revolutionizing travel across the Middle East with tech-driven chauffeured experiences and premium bus trips.",
+    "address1": "Cairo - Hegaz Street -",
+    "address2": "In front of Heliopolis Hospital",
+    "whatsapp": "WHATSAPP US",
+    "titles": {
+      "services": "Services",
+      "explore": "Explore",
+      "company": "Company",
+      "social": "Social",
+      "contact": "Support"
+    },
+    "links": {
+      "premium": "Premium Transfers",
+      "intercity": "Intercity Travel",
+      "business": "Business Solutions",
+      "vip": "VIP Concierge",
+      "about": "About Us",
+      "safety": "Safety",
+      "careers": "Careers",
+      "legal": "Legal",
+      "cairo": "Cairo",
+      "alex": "Alexandria",
+      "sharm": "Sharm El Sheikh",
+      "alamein": "New Alamein",
+      "coast": "North Coast",
+      "siwa": "Siwa",
+      "dahab": "Dahab"
+    },
+    "widget": {
+      "starting": "Starting From",
+      "currency": "EGP",
+      "price": "2,000",
+      "desc": "Includes Go & Return • 8h Free Waiting • Professional Driver • Fuel"
+    },
+    "copyright": "© 2026 WEEGO TRAVEL. ALL RIGHTS RESERVED.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "auth": {
+    "login": {
+      "title": "Log In",
+      "subtitle": "Welcome back! Log in to access your account and manage your trips.",
+      "email": "Email",
+      "password": "Password",
+      "remember": "Remember me",
+      "forgotPassword": "Forgot your password?",
+      "button": "Sign In",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create new account"
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Create your account to benefit from WEEGO services and easily manage your bookings.",
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "button": "Create Account",
+      "haveAccount": "Already have an account?",
+      "login": "Log in"
+    },
+    "placeholders": {
+      "name": "Write your full name",
+      "email": "example@email.com",
+      "phone": "Phone number",
+      "password": "Enter your password",
+      "confirmPassword": "Re-enter your password"
+    },
+    "validation": {
+      "required": "This field is required",
+      "invalidEmail": "Please enter a valid email address.",
+      "passwordShort": "Password must be at least 6 characters.",
+      "passwordMatch": "Passwords do not match.",
+      "emailRegistered": "This email is already registered.",
+      "incorrectCredentials": "Incorrect email or password."
+    },
+    "hint": "Hint: Use admin@weego.com / admin123 for Admin Dashboard."
+  },
+  "dashboard": {
+    "welcome": "Welcome back, ",
+    "upcomingTrips": "You have {count} upcoming trips.",
+    "planTrip": "Plan Your Trip",
+    "comingSoon": "Coming Soon",
+    "stats": {
+      "totalTrips": {
+        "title": "Total Trips",
+        "desc": "Completed journeys"
+      },
+      "upcomingTrips": {
+        "title": "Upcoming Trips",
+        "desc": "Scheduled rides"
+      },
+      "loyaltyPoints": {
+        "title": "Loyalty Points",
+        "desc": "Available for rewards"
+      }
+    },
+    "recentTrips": {
+      "title": "Recent Trips",
+      "columns": {
+        "destination": "Destination",
+        "date": "Date",
+        "vehicle": "Vehicle Type",
+        "status": "Status"
+      },
+      "statusUpcoming": "Upcoming",
+      "statusCompleted": "Completed",
+      "dest1": "Cairo International (CAI)",
+      "dest2": "Sharm El Sheikh Gateway",
+      "dest3": "Heliopolis Palace",
+      "vehicle1": "S-Class Sedan",
+      "vehicle2": "Standard Premium",
+      "vehicle3": "Executive SUV",
+      "date1": "Oct 15, 2026",
+      "date2": "Sep 02, 2026",
+      "date3": "Aug 18, 2026"
+    },
+    "referral": {
+      "title1": "Invite Friends & ",
+      "title2": "Earn Rewards",
+      "desc": "Share your referral code with friends. When they complete their first trip, you both earn bonus points.",
+      "copy": "Copy Referral Code"
+    },
+    "achievements": {
+      "title": "Your Achievements",
+      "a1": {
+        "name": "First Trip",
+        "desc": "Completed your first ride"
+      },
+      "a2": {
+        "name": "Frequent Traveler",
+        "desc": "Completed 10 rides"
+      },
+      "a3": {
+        "name": "Social Traveler",
+        "desc": "Referred 3 friends"
+      },
+      "a4": {
+        "name": "Elite Member",
+        "desc": "Reached Gold Tier"
+      },
+      "a5": {
+        "name": "Big Spender",
+        "desc": "Earned 20,000 points"
+      }
+    },
+    "menu": {
+      "overview": "Overview",
+      "adminDashboard": "Admin Dashboard",
+      "myBookings": "My Bookings",
+      "logout": "Log out"
+    }
+  },
+  "booking": {
+    "title": "Book Your Trip",
+    "steps": {
+      "details": "Trip Details",
+      "vehicle": "Vehicle & Preferences",
+      "review": "Review & Confirm"
+    },
+    "tripType": {
+      "oneWay": "One Way",
+      "roundTrip": "Round Trip",
+      "multiCity": "Multi-City",
+      "hourly": "Hourly",
+      "airport": "Airport Transfer"
+    },
+    "form": {
+      "destinationArea": "Destination Area",
+      "dates": "Dates",
+      "pickupDate": "Pickup Date",
+      "returnDate": "Return Date",
+      "time": "Time",
+      "pickupLocation": "Pickup Location",
+      "pickupPlaceholder": "From: e.g. Cairo Airport",
+      "dropoffLocation": "Dropoff Location",
+      "dropoffLocationAirport": "Dropoff Destination",
+      "dropoffPlaceholder": "To: e.g. Hilton Hotel",
+      "flightNumber": "Flight Number",
+      "flightPlaceholder": "e.g. MS123",
+      "airport": "Airport",
+      "airportPlaceholder": "e.g. Cairo International",
+      "fullName": "Full Name (4 names)",
+      "fullNamePlaceholder": "First Second Third Fourth",
+      "whatsapp": "WhatsApp Phone",
+      "arrivalDate": "Arrival Date",
+      "arrivalTime": "Arrival Time",
+      "customTime": "Or custom time (e.g. 22:30)",
+      "passengers": "Passengers",
+      "luggage": "Number of Luggage",
+      "bags": "Bags",
+      "pickupLocationAirport": "Pickup Location / Terminal",
+      "specialRequests": "Special Requests (Optional)",
+      "specialRequestsPlaceholder": "Any special requirements for your trip..."
+    },
+    "vehicleSelection": {
+      "title": "Vehicle Selection",
+      "seats": "seats",
+      "bags": "bags",
+      "startingFrom": "Starting from"
+    },
+    "review": {
+      "title": "Review Booking",
+      "summary": "Booking Summary",
+      "tripType": "Trip Type",
+      "pickup": "Pickup",
+      "dropoff": "Dropoff",
+      "dateTime": "Date & Time",
+      "vehicle": "Vehicle Selected",
+      "passengers": "Passengers",
+      "totalEstimate": "Total Estimate",
+      "baseFare": "Base Fare",
+      "addons": "Add-ons",
+      "total": "Total Price",
+      "priceIncludes": "Price includes:",
+      "includes": {
+        "goReturn": "Go & Return",
+        "waiting": "8 Hours Free Waiting",
+        "driver": "Professional Driver",
+        "fuel": "Fuel Included",
+        "door": "Door-to-Door Service"
+      },
+      "bookingInfo": "Booking Info",
+      "priceMessage": "Price will be confirmed via WhatsApp",
+      "priceDesc": "Once you confirm your booking, our team will review the details and contact you securely to discuss and lock in the final price.",
+      "pointTransfer": "Point to Point Transfer",
+      "proDriver": "Professional Driver",
+      "cleanVehicles": "Clean & Premium Vehicles",
+      "customerSupport": "Customer Support"
+    },
+    "buttons": {
+      "next": "Next Step",
+      "back": "Back",
+      "confirm": "Confirm Booking"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "totalRevenue": "Total Revenue",
+      "totalBookings": "Total Bookings",
+      "activeTrips": "Active Trips",
+      "activeTripsSub": "Currently ongoing bookings and dispatch",
+      "activeVehicles": "Active Vehicles",
+      "airportPickups": "Airport Pickups",
+      "corporateClients": "Corporate Clients",
+      "revenueAnalytics": "Revenue Analytics",
+      "revenueSub": "B2B vs B2C Revenue Streams",
+      "filter": "Filter",
+      "tripId": "Trip ID",
+      "passenger": "Passenger",
+      "driverVehicle": "Driver / Vehicle",
+      "route": "Route",
+      "status": "Status",
+      "actions": "Actions",
+      "viewAllActiveTrips": "View All Active Trips →",
+      "liveFleet": "Live Fleet",
+      "popularDestinations": "Popular Destinations",
+      "recentActivity": "Recent Activity"
+    },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "bookings": "Bookings",
+      "dispatch": "Dispatch Board",
+      "fleet": "Fleet Tracker",
+      "airport": "Airport Pickups",
+      "drivers": "Drivers",
+      "vehicles": "Vehicles",
+      "corporate": "Corporate Accounts",
+      "crm": "Sales Leads CRM",
+      "finance": "Finance & Invoices",
+      "support": "Support Tickets",
+      "staff": "Staff & Roles",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "status": {
+      "in_progress": "On Route",
+      "pending": "Pending Assignment",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "assigned": "Driver Assigned"
+    }
+  }
+}
