@@ -255,14 +255,8 @@ export async function fetchAdminDashboardStats() {
         name, count, percent: Math.round((count / (popularDestDB?.length || 1)) * 100)
       }));
 
-    let dynamicRevenue = 0;
-    if (recentInvoices) {
-      dynamicRevenue += recentInvoices.reduce((acc, curr) => curr.status === 'success' ? acc + Number(curr.amount || 0) : acc, 0);
-    }
-    const b2cRevenue = recentPayments?.reduce((acc, curr) => curr.status === 'completed' ? acc + Number(curr.amount || 0) : acc, 0) || 0;
-
     const stats = {
-      totalRevenue: dynamicRevenue + b2cRevenue + (rpcData?.total_revenue || 0),
+      totalRevenue: rpcData?.total_revenue || 0,
       totalBookings: bookingsCount || rpcData?.total_bookings || 0,
       totalUsers: rpcData?.total_users || 0,
       totalDrivers: rpcData?.total_drivers || 0,
@@ -347,23 +341,26 @@ export async function fetchAdminAirportRequests(searchQuery?: string, statusFilt
   if (sessionError || !session) return { data: null, error: new Error("Unauthorized") };
 
   let query = supabase
-    .from("bookings")
+    .from("airport_requests")
     .select(`
       *,
       users(first_name, last_name, phone)
     `)
-    .eq("category", "airport_pickup")
     .order("created_at", { ascending: false });
 
   if (searchQuery) {
-    query = query.ilike("full_name", `%${searchQuery}%`);
+    query = query.or(`flight_number.ilike.%${searchQuery}%,id.ilike.%${searchQuery}%,customer_name.ilike.%${searchQuery}%`);
   }
 
   if (statusFilter && statusFilter.toLowerCase() !== "all") {
-    query = query.eq("status", statusFilter.toLowerCase());
+    query = query.in("status", [statusFilter.toLowerCase()]);
+  } else {
+    // Show all common statuses or don't filter
+    query = query.in("status", ["pending", "accepted", "completed", "canceled"]);
   }
 
   const { data, error } = await query;
+  console.log("FETCH RESULT:", data);
 
   return { data, error };
 }
@@ -427,46 +424,57 @@ export async function fetchAdminTickets() {
  * Processes an airport request cleanly with exact DB matching schema.
  */
 export async function createAirportRequest(
-  booking_id: string,
+  booking_id: string | null = null,
   flight_number: string,
   arrival_time: string,
   passenger_count: number,
   luggage_count: number,
-  ticket_file_url: string | null = null
-): Promise<{ success: boolean; error: Error | null }> {
+  ticket_file_url: string | null = null,
+  customer_id?: string | null,
+  status: string = "pending",
+  price: number = 0,
+  customer_name: string = "",
+  customer_phone: string = "",
+  pickup_location: string = "",
+  dropoff_location: string = ""
+): Promise<{ success: boolean; data?: any; error: Error | null }> {
   let retries = 3;
   let lastError: Error | null = null;
 
   while (retries > 0) {
     try {
-      const payload = {
-        booking_id,
-        flight_number,
-        arrival_time,
-        passenger_count,
-        luggage_count,
-        ticket_file_url
+      const rpcPayload = {
+        p_booking_id: booking_id || null,
+        p_flight_number: flight_number || "UNKNOWN",
+        p_arrival_time: arrival_time || new Date().toISOString(),
+        p_passenger_count: passenger_count || 1,
+        p_luggage_count: luggage_count || 0,
+        p_status: status || "pending",
+        p_price: price || 0,
+        p_customer_id: customer_id || null,
+        p_customer_name: customer_name || null,
+        p_customer_phone: customer_phone || null,
+        p_pickup_location: pickup_location || null,
+        p_dropoff_location: dropoff_location || null,
+        p_ticket_file_url: ticket_file_url || null
       };
 
-      console.log("[Create Airport Request] Payload:", payload);
+      console.log("BEFORE AIRPORT INSERT - Payload:", rpcPayload);
+      console.log("SUPABASE CONFIG URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
 
-      const { data, error } = await supabase
-        .from("airport_requests")
-        .insert(payload)
-        .select()
-        .single();
+      const { data, error } = await supabase.rpc('insert_airport_request_debug', rpcPayload);
+
+      console.log("AFTER AIRPORT INSERT - Result:", { data, error });
 
       if (!error && data) {
-        console.log("[Create Airport Request] Success:", data);
-        return { success: true, error: null };
+        return { success: true, data, error: null };
       }
 
-      // console.warn(`[Create Airport Request] attempt failed (${retries} left):`, error?.message);
+      console.error(`[Create Airport Request] attempt failed (${retries} left):`, error);
       lastError = error;
     } catch (err: unknown) {
-      const currentErr = err instanceof Error ? err : new Error(String(err));
-      // console.warn(`[Create Airport Request] exception (${retries} left):`, currentErr.message);
-      lastError = currentErr;
+      console.error(`[Create Airport Request] exception (${retries} left):`, err);
+      lastError = err instanceof Error ? err : new Error(String(err));
     }
 
     retries--;

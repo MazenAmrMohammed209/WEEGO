@@ -66,7 +66,7 @@ export default function AdminDashboardPage() {
     );
   }
 
-  if (isError || !analytics) {
+  if (isError) {
     return (
       <div className="flex min-h-[500px] w-full items-center justify-center flex-col gap-4">
         <AlertCircle className="h-12 w-12 text-red-500" />
@@ -76,13 +76,26 @@ export default function AdminDashboardPage() {
     );
   }
 
+  if (analytics) {
+    console.log("Dashboard Data:", analytics);
+  }
+
+  if (!analytics) {
+    return (
+      <div className="flex min-h-[500px] w-full items-center justify-center flex-col gap-4">
+        <Loader2 className="h-12 w-12 text-[#00ff9d] animate-spin" />
+        <h2 className="text-xl font-bold text-white">Loading Analytics...</h2>
+      </div>
+    );
+  }
+
   const statCards = [
-    { title: t("admin.dashboard.totalRevenue") || "Total Revenue", value: `$${Number(analytics.totalRevenue).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`, icon: DollarSign },
-    { title: t("admin.dashboard.totalBookings") || "Total Bookings", value: analytics.totalBookings.toLocaleString(), icon: CalendarDays },
-    { title: t("admin.dashboard.activeTrips") || "Active Trips", value: analytics.activeTrips.toString(), icon: Navigation },
-    { title: t("admin.dashboard.activeVehicles") || "Active Vehicles", value: analytics.activeVehicles.toString(), icon: CarFront },
-    { title: t("admin.dashboard.airportPickups") || "Airport Pickups", value: analytics.airportPickups.toString(), icon: PlaneLanding },
-    { title: t("admin.dashboard.corporateClients") || "Corporate Clients", value: analytics.corporateClients.toString(), icon: Briefcase },
+    { title: t("admin.dashboard.totalRevenue") || "Total Revenue", value: `$${Number(analytics?.totalRevenue ?? 0).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`, icon: DollarSign },
+    { title: t("admin.dashboard.totalBookings") || "Total Bookings", value: (analytics?.totalBookings ?? 0).toLocaleString(), icon: CalendarDays },
+    { title: t("admin.dashboard.activeTrips") || "Active Trips", value: (analytics?.activeTrips ?? 0).toString(), icon: Navigation },
+    { title: t("admin.dashboard.activeVehicles") || "Active Vehicles", value: (analytics?.activeVehicles ?? 0).toString(), icon: CarFront },
+    { title: t("admin.dashboard.airportPickups") || "Airport Pickups", value: (analytics?.airportPickups ?? 0).toString(), icon: PlaneLanding },
+    { title: t("admin.dashboard.corporateClients") || "Corporate Clients", value: (analytics?.corporateClients ?? 0).toString(), icon: Briefcase },
   ];
 
   return (
@@ -140,7 +153,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Dynamic SVG Line Chart */}
-        <RevenueChart payments={analytics.payments || []} invoices={analytics.invoices || []} filter={revenueFilter} />
+        <RevenueChart payments={analytics?.payments ?? []} invoices={analytics?.invoices ?? []} filter={revenueFilter} />
       </section>
 
       {/* TWO COLUMN BOTTOM LAYOUT */}
@@ -150,9 +163,9 @@ export default function AdminDashboardPage() {
         <section className="rounded-3xl border border-white/5 bg-[#0a0a0a]/80 backdrop-blur-md p-6 shadow-xl">
           <h2 className="text-xl font-bold text-white mb-6">{t("admin.dashboard.popularDestinations") || "Popular Destinations"}</h2>
           <div className="space-y-6">
-            {analytics.popularDestinations.length === 0 ? (
+            {(analytics?.popularDestinations ?? []).length === 0 ? (
                <p className="text-white/50 text-sm">No destinations tracked yet.</p>
-            ) : analytics.popularDestinations.map((dest: any, i: number) => (
+            ) : (analytics?.popularDestinations ?? []).map((dest: any, i: number) => (
               <div key={i} className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-semibold text-white/80 max-w-[200px] truncate">{dest.name}</span>
@@ -179,11 +192,11 @@ export default function AdminDashboardPage() {
            </div>
            <div className="space-y-0 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-[#00ff9d]/50 before:via-white/10 before:to-transparent pl-12 md:pl-0">
               
-              {analytics.bookings.length === 0 ? (
+              {(analytics?.bookings ?? []).length === 0 ? (
                  <div className="pl-4 pb-4">
                    <p className="text-white/50 text-sm">No recent activity.</p>
                  </div>
-              ) : analytics.bookings.slice(0, 4).map((booking: any, i: number) => {
+              ) : (analytics?.bookings ?? []).slice(0, 4).map((booking: any, i: number) => {
                 let event = {
                   title: "New Booking Created",
                   desc: booking.users ? `Passenger: ${booking.users.first_name}` : `Booking Ref: ${booking.reference_number || "Unknown"}`,

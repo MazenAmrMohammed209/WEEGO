@@ -209,46 +209,42 @@ function BookingContent() {
         bookingPayload.categoryId
       );
 
-      if (bookingError || !bookingId) {
-        console.error("Booking Table Insert Failed:", bookingError);
-        throw bookingError || new Error("Unknown booking error");
-      }
+      console.log("BOOKING INSERT:", bookingId, bookingError);
 
-      console.log("Successfully inserted into bookings. ID:", bookingId);
+      console.log("STEP 1: Booking success", bookingId);
+      console.log("STEP 2: Calling airport insert");
 
-      // Handle airport requests sequentially if applicable
-      if (tripType === "Airport") {
-        const airportPayload = {
-          booking_id: bookingId,
-          flight_number: flightNumber,
-          arrival_time: scheduledDateTime,
-          passenger_count: Number(passengers),
-          luggage_count: Number(luggage),
-          ticket_file_url: null as string | null
-        };
+      // FORCED EXECUTION (Ignoring tripType condition)
+      const airportPayload = {
+        booking_id: bookingId,
+        flight_number: flightNumber || "UNKNOWN_FLIGHT",
+        arrival_time: scheduledDateTime || new Date().toISOString(),
+        passenger_count: Number(passengers) || 1,
+        luggage_count: Number(luggage) || 0,
+        ticket_file_url: null,
+        customer_id: customerId || null,
+        status: "pending",
+        price: 0
+      };
+      
+      console.log("STEP 3: Payload:", airportPayload);
 
-        console.log("Initiating Airport Request Insert in background. Payload:", airportPayload);
+      const { success, data, error: reqError } = await createAirportRequest(
+        airportPayload.booking_id,
+        airportPayload.flight_number,
+        airportPayload.arrival_time,
+        airportPayload.passenger_count,
+        airportPayload.luggage_count,
+        airportPayload.ticket_file_url,
+        airportPayload.customer_id,
+        airportPayload.status,
+        airportPayload.price
+      );
 
-        (async () => {
-          try {
-            const { success, error: reqError } = await createAirportRequest(
-              airportPayload.booking_id,
-              airportPayload.flight_number,
-              airportPayload.arrival_time,
-              airportPayload.passenger_count,
-              airportPayload.luggage_count,
-              airportPayload.ticket_file_url
-            );
+      console.log("STEP 4: Supabase response:", data, reqError);
 
-            if (!success) {
-              // console.warn("Airport Request Table Background Insert Failed:", reqError);
-            } else {
-              console.log("Successfully inserted into airport_requests in background!");
-            }
-          } catch (err) {
-            console.error("Background Exception during airport_requests insert:", err);
-          }
-        })();
+      if (!success) {
+        console.error("FORCE INSERT FAILED:", reqError);
       }
 
       setBookingReference(refNum);

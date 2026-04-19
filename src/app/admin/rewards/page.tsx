@@ -10,8 +10,7 @@ import { RowActions } from "@/components/admin/RowActions";
 interface RewardLevel {
   id: string;
   level_name: string;
-  min_points: number;
-  max_points: number | null;
+  points_required: number;
   discount_percent: number;
   free_trips: number;
   description: string;
@@ -28,8 +27,7 @@ export default function AdminRewardsPage() {
 
   const [formData, setFormData] = useState({
     level_name: "",
-    min_points: "",
-    max_points: "",
+    points_required: "",
     discount_percent: "",
     free_trips: "",
     description: "",
@@ -42,7 +40,7 @@ export default function AdminRewardsPage() {
       const { data, error } = await supabase
         .from("reward_levels")
         .select("*")
-        .order("min_points", { ascending: true });
+        .order("points_required", { ascending: true });
         
       if (error) throw error;
       if (data) setLevels(data);
@@ -62,8 +60,7 @@ export default function AdminRewardsPage() {
     setEditingId(level.id);
     setFormData({
       level_name: level.level_name,
-      min_points: level.min_points.toString(),
-      max_points: level.max_points ? level.max_points.toString() : "",
+      points_required: level.points_required.toString(),
       discount_percent: level.discount_percent.toString(),
       free_trips: level.free_trips.toString(),
       description: level.description || "",
@@ -80,8 +77,7 @@ export default function AdminRewardsPage() {
     try {
       const payload = {
         level_name: formData.level_name,
-        min_points: parseInt(formData.min_points, 10),
-        max_points: formData.max_points ? parseInt(formData.max_points, 10) : null,
+        points_required: parseInt(formData.points_required, 10),
         discount_percent: parseFloat(formData.discount_percent),
         free_trips: parseInt(formData.free_trips, 10),
         description: formData.description,
@@ -98,7 +94,7 @@ export default function AdminRewardsPage() {
       if (error) throw error;
 
       if (data) {
-        setLevels(prev => prev.map(l => l.id === editingId ? data : l).sort((a, b) => a.min_points - b.min_points));
+        setLevels(prev => prev.map(l => l.id === editingId ? data : l).sort((a, b) => a.points_required - b.points_required));
         toast.success("Reward level updated successfully");
       }
       setIsModalOpen(false);
@@ -151,7 +147,7 @@ export default function AdminRewardsPage() {
                   </td>
                   <td className="px-6 py-5">
                     <span className="text-sm font-bold text-white">
-                        {lvl.min_points} {lvl.max_points ? `- ${lvl.max_points}` : '+'} pts
+                        {lvl.points_required} pts
                     </span>
                   </td>
                   <td className="px-6 py-5">
@@ -229,26 +225,15 @@ export default function AdminRewardsPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-white/70 uppercase">Min Points <span className="text-red-500">*</span></label>
-                  <input 
-                    required
-                    type="number" 
-                    value={formData.min_points}
-                    onChange={(e) => setFormData({...formData, min_points: e.target.value})}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00ff9d]/50 transition-all"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-white/70 uppercase">Max Points (Leave empty for max)</label>
-                  <input 
-                    type="number" 
-                    value={formData.max_points}
-                    onChange={(e) => setFormData({...formData, max_points: e.target.value})}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00ff9d]/50 transition-all"
-                  />
-                </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-white/70 uppercase">Points Required <span className="text-red-500">*</span></label>
+                <input 
+                  required
+                  type="number" 
+                  value={formData.points_required}
+                  onChange={(e) => setFormData({...formData, points_required: e.target.value})}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00ff9d]/50 transition-all"
+                />
               </div>
 
               <div className="grid grid-cols-2 gap-4">

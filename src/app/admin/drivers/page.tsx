@@ -110,7 +110,14 @@ const [formData, setFormData] = useState({
 
         if (error) throw error;
         
-        queryClient.setQueryData(["adminDrivers"], (old: DriverRecord[] | undefined) => (old || []).map(d => d.id === editingId ? data : d));
+        queryClient.setQueryData(
+          ["adminDrivers", currentPage, searchQuery], 
+          (old: any) => {
+            if (!old) return { data: [data], count: 1 };
+            return { data: old.data.map((d: any) => d.id === editingId ? data : d), count: old.count };
+          }
+        );
+        await queryClient.invalidateQueries({ queryKey: ["adminDrivers"] });
         showToast("Driver updated successfully", "success");
       } else {
         const { data: newDriver, error } = await supabase
@@ -121,7 +128,14 @@ const [formData, setFormData] = useState({
 
         if (error) throw error;
         
-        queryClient.setQueryData(["adminDrivers"], (old: DriverRecord[] | undefined) => [...(old || []), newDriver]);
+        queryClient.setQueryData(
+          ["adminDrivers", currentPage, searchQuery], 
+          (old: any) => {
+            if (!old) return { data: [newDriver], count: 1 };
+            return { data: [newDriver, ...old.data], count: old.count + 1 };
+          }
+        );
+        await queryClient.invalidateQueries({ queryKey: ["adminDrivers"] });
         showToast("Driver added successfully", "success");
       }
 
@@ -162,7 +176,14 @@ const [formData, setFormData] = useState({
       const { error } = await supabase.from('drivers').delete().eq('id', id);
       if (error) throw error;
       
-      queryClient.setQueryData(["adminDrivers"], (old: DriverRecord[] | undefined) => (old || []).filter((d) => d.id !== id));
+      queryClient.setQueryData(
+        ["adminDrivers", currentPage, searchQuery], 
+        (old: any) => {
+          if (!old) return { data: [], count: 0 };
+          return { data: old.data.filter((d: any) => d.id !== id), count: Math.max(0, old.count - 1) };
+        }
+      );
+      await queryClient.invalidateQueries({ queryKey: ["adminDrivers"] });
       showToast("Driver deleted successfully", "success");
     } catch (err: unknown) {
       const currentErr = err instanceof Error ? err : new Error(String(err));

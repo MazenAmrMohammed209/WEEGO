@@ -26,25 +26,25 @@ export default function AdminAirportRequestsPage() {
   }, [searchQuery]);
 
   const fetchCb = useCallback(() => fetchAdminAirportRequests(debouncedSearch, statusFilter), [debouncedSearch, statusFilter]);
-  const { data: rawRequests, loading: isLoading, setData: setRawRequests } = useAdminRealtime("bookings", fetchCb);
+  const { data: rawRequests, loading: isLoading, setData: setRawRequests } = useAdminRealtime("airport_requests", fetchCb);
 
   const stats = useMemo(() => {
     if (!rawRequests) return { total: 0, pending: 0, missingTickets: 0, assigned: 0, revenue: 0 };
     return {
       total: rawRequests.length,
       pending: rawRequests.filter(b => b.status === "pending").length,
-      missingTickets: rawRequests.filter(b => !b.flight_number).length,
-      assigned: rawRequests.filter(b => b.driver_id !== null).length,
-      revenue: rawRequests.reduce((sum, b) => sum + (b.price_final || b.price_estimated || 0), 0)
+      missingTickets: rawRequests.filter(b => !b.ticket_file_url).length,
+      assigned: rawRequests.filter(b => b.status === "accepted").length,
+      revenue: rawRequests.reduce((sum, b) => sum + (Number(b.price) || 0), 0)
     };
   }, [rawRequests]);
 
   const requests = useMemo(() => {
     if (!rawRequests) return [];
     return rawRequests.map((req: any) => {
-      const passengerName = req.full_name || (req.users ? `${req.users.first_name} ${req.users.last_name}` : "Unknown Passenger");
+      const passengerName = req.users ? `${req.users.first_name} ${req.users.last_name}` : "Unknown Passenger";
       const statusText = req.status || "pending";
-      const arrTime = req.arrival_time ? new Date(req.arrival_time) : new Date(req.scheduled_time || '');
+      const arrTime = new Date(req.arrival_time || '');
       const timeFormatted = isNaN(arrTime.getTime()) ? "Unknown Time" : arrTime.toLocaleString();
 
       return {
@@ -52,12 +52,12 @@ export default function AdminAirportRequestsPage() {
         rawId: req.id,
         passenger: passengerName,
         flight: req.flight_number || "N/A",
-        airport: req.pickup_location || "Airport",
+        airport: "Airport Transfer",
         time: timeFormatted,
-        rawTime: req.arrival_time || req.scheduled_time || '',
-        pax: req.passengers || 1,
-        luggage: req.luggage || 0,
-        ticket: !!req.flight_number,
+        rawTime: req.arrival_time || '',
+        pax: req.passenger_count || 1,
+        luggage: req.luggage_count || 0,
+        ticket: !!req.ticket_file_url,
         status: statusText,
         notes: req.notes || ''
       };
@@ -86,11 +86,10 @@ export default function AdminAirportRequestsPage() {
     setIsSaving(true);
     try {
       const { data, error } = await supabase
-        .from('bookings')
+        .from('airport_requests')
         .update({
           status: editForm.status,
           arrival_time: editForm.time || null,
-          notes: editForm.notes || null,
         })
         .eq('id', editingBooking.rawId)
         .select()
@@ -102,10 +101,10 @@ export default function AdminAirportRequestsPage() {
         setRawRequests((prev: any[]) => prev.map(r => r.id === editingBooking.rawId ? data : r));
       }
 
-      toast.success("Booking updated successfully");
+      toast.success("Request updated successfully");
     } catch (err: any) {
       console.error(err);
-      toast.error(err.message || "Failed to update booking");
+      toast.error(err.message || "Failed to update request");
     } finally {
       setIsSaving(false);
       setEditingBooking(null);
@@ -119,7 +118,7 @@ export default function AdminAirportRequestsPage() {
 
   const handleDelete = async (rawId: string) => {
     try {
-      const { error } = await supabase.from("bookings").delete().eq("id", rawId);
+      const { error } = await supabase.from("airport_requests").delete().eq("id", rawId);
       if (error) throw error;
       if (setRawRequests) {
         setRawRequests((prev: any[]) => prev.filter(r => r.id !== rawId));
@@ -265,7 +264,7 @@ export default function AdminAirportRequestsPage() {
                     <div className="flex items-center justify-end gap-2">
                       {req.status === "pending" && (
                         <button onClick={async () => {
-                          const { data, error } = await supabase.from("bookings").update({ status: "accepted" }).eq("id", req.rawId).select().single();
+                          const { data, error } = await supabase.from("airport_requests").update({ status: "accepted" }).eq("id", req.rawId).select().single();
                           if (!error && setRawRequests && data) {
                             setRawRequests((prev: any[]) => prev.map(r => r.id === req.rawId ? data : r));
                           }

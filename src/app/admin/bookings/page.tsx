@@ -292,8 +292,17 @@ export default function AdminBookingsPage() {
         console.error("Booking error details:", error);
         throw error;
       }
-      
-      queryClient.invalidateQueries({ queryKey: ["adminBookings"] });
+      queryClient.setQueryData(
+        ["adminBookings", currentPage, searchQuery, selectedStatus, selectedDate], 
+        (old: any) => {
+          if (!old) return { data: [data], count: 1 };
+          return {
+            count: old.count,
+            data: old.data.map((b: any) => b.id === editingBooking.dbId ? data : b)
+          };
+        }
+      );
+      await queryClient.invalidateQueries({ queryKey: ["adminBookings"] });
       showToast("Booking updated successfully", "success");
       setIsEditModalOpen(false);
       setEditingBooking(null);
@@ -320,7 +329,17 @@ export default function AdminBookingsPage() {
         console.error("DELETE ERROR:", error);
         throw error;
       }
-      queryClient.invalidateQueries({ queryKey: ["adminBookings"] });
+      queryClient.setQueryData(
+        ["adminBookings", currentPage, searchQuery, selectedStatus, selectedDate], 
+        (old: any) => {
+          if (!old) return { data: [], count: 0 };
+          return {
+            count: Math.max(0, old.count - 1),
+            data: old.data.filter((b: any) => b.id !== id)
+          };
+        }
+      );
+      await queryClient.invalidateQueries({ queryKey: ["adminBookings"] });
       showToast("Booking deleted successfully", "success");
     } catch (err: unknown) {
       const currentErr = err instanceof Error ? err : new Error(String(err));
@@ -340,7 +359,17 @@ export default function AdminBookingsPage() {
       if (error) {
         console.error("Update failed:", error.message);
       } else {
-        queryClient.invalidateQueries({ queryKey: ["adminBookings"] });
+        queryClient.setQueryData(
+          ["adminBookings", currentPage, searchQuery, selectedStatus, selectedDate], 
+          (old: any) => {
+            if (!old) return old;
+            return {
+              count: old.count,
+              data: old.data.map((b: any) => b.id === bookingId ? { ...b, status: newStatus.toLowerCase() } : b)
+            };
+          }
+        );
+        await queryClient.invalidateQueries({ queryKey: ["adminBookings"] });
       }
     } catch (err) {
       console.error(err);
@@ -360,7 +389,17 @@ export default function AdminBookingsPage() {
           console.error("Failed to assign driver:", error);
           showToast(error.message, "error");
         } else {
-          queryClient.invalidateQueries({ queryKey: ["adminBookings"] });
+          queryClient.setQueryData(
+            ["adminBookings", currentPage, searchQuery, selectedStatus, selectedDate], 
+            (old: any) => {
+              if (!old) return old;
+              return {
+                count: old.count,
+                data: old.data.map((b: any) => b.id === bookingId ? data : b)
+              };
+            }
+          );
+          await queryClient.invalidateQueries({ queryKey: ["adminBookings"] });
           showToast("Driver assigned successfully", "success");
         }
       } catch (err: unknown) {

@@ -57,50 +57,68 @@ export default function AirportTransferPage() {
         defaultCategoryId
       );
 
+      console.log("BOOKING INSERT:", bookingId, bookingError);
+
       if (bookingError || !bookingId) {
         throw bookingError || new Error("Failed to create primary booking");
+      }
+
+      let ticketUrl: string | null = null;
+      if (file) {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${bookingId}_${Math.random()}.${fileExt}`;
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('tickets')
+          .upload(fileName, file);
+          
+        if (uploadError) {
+          console.error("File upload failed:", uploadError.message);
+        } else if (uploadData) {
+            const { data: publicUrlData } = supabase.storage.from('tickets').getPublicUrl(uploadData.path);
+            ticketUrl = publicUrlData.publicUrl;
+        }
+      }
+
+      console.log("STEP 1: Booking success", bookingId);
+      console.log("STEP 2: Calling airport insert");
+
+      // FORCED EXECUTION
+      const airportPayload = {
+        booking_id: bookingId,
+        flight_number: formData.flightNumber || "UNKNOWN_FLIGHT",
+        arrival_time: scheduledDateTime || new Date().toISOString(),
+        passenger_count: Number(formData.pax) || 1,
+        luggage_count: Number(formData.luggage) || 0,
+        ticket_file_url: ticketUrl,
+        customer_id: customerId || null,
+        status: "pending",
+        price: 0
+      };
+
+      console.log("STEP 3: Payload:", airportPayload);
+
+      const { success, data, error: reqError } = await createAirportRequest(
+        airportPayload.booking_id,
+        airportPayload.flight_number,
+        airportPayload.arrival_time,
+        airportPayload.passenger_count,
+        airportPayload.luggage_count,
+        airportPayload.ticket_file_url,
+        airportPayload.customer_id,
+        airportPayload.status,
+        airportPayload.price
+      );
+
+      console.log("STEP 4: Supabase response:", data, reqError);
+
+      if (!success) {
+        console.error("FORCE INSERT FAILED:", reqError);
       }
 
       // Fast UI Success Non-blocking response
       setIsSubmitting(false);
       setIsSuccess(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
-
-      // 2. Do heavy ops in background (Non-blocking) so UI feels instant
-      (async () => {
-        try {
-          let ticketUrl: string | null = null;
-          if (file) {
-            const fileExt = file.name.split('.').pop();
-            const fileName = `${bookingId}_${Math.random()}.${fileExt}`;
-            const { data: uploadData, error: uploadError } = await supabase.storage
-              .from('tickets')
-              .upload(fileName, file);
-              
-            if (uploadError) {
-              console.error("File upload failed:", uploadError.message);
-            } else if (uploadData) {
-               const { data: publicUrlData } = supabase.storage.from('tickets').getPublicUrl(uploadData.path);
-               ticketUrl = publicUrlData.publicUrl;
-            }
-          }
-
-          const { success, error: reqError } = await createAirportRequest(
-            bookingId,
-            formData.flightNumber,
-            scheduledDateTime,
-            Number(formData.pax),
-            Number(formData.luggage),
-            ticketUrl
-          );
-
-          if (!success) {
-            console.error("Failed to insert airport_requests completely:", reqError);
-          }
-        } catch (err) {
-          console.error("Background processing error:", err);
-        }
-      })();
 
     } catch (err) {
       console.error("Form submission error:", err);

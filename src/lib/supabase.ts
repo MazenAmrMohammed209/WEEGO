@@ -11,4 +11,8 @@ if (!supabaseAnonKey || supabaseAnonKey.includes("placeholder")) {
   throw new Error("Missing or invalid NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable.");
 }
 
-export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey, {
+  global: {
+    fetch: (url, options) => fetch(url, { ...options, cache: "no-store" })
+  }
+});
